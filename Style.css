@@ -1,0 +1,221 @@
+/* ========== RESET E BASE ========== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 1.5s ease;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* ========== FUNDOS POR HORÁRIO (controlado pelo JS) ========== */
+body.manha {
+    background: linear-gradient(135deg, #fef9f0 0%, #f8e0e0 40%, #f5d0c0 100%);
+}
+
+body.tarde {
+    background: linear-gradient(135deg, #f0f8e8 0%, #fef9e0 40%, #fceabb 100%);
+}
+
+body.noite {
+    background: linear-gradient(135deg, #1a1a3e 0%, #2d2b55 40%, #1e1e3a 100%);
+}
+
+/* ========== FLORES DECORATIVAS ========== */
+.flor-canto {
+    position: fixed;
+    width: 120px;
+    height: 120px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.7;
+    z-index: 1;
+    transition: background-image 1.5s ease;
+}
+
+.flor-esquerda-cima { top: -10px; left: -10px; }
+.flor-direita-cima { top: -10px; right: -10px; }
+.flor-esquerda-baixo { bottom: -10px; left: -10px; }
+.flor-direita-baixo { bottom: -10px; right: -10px; }
+
+/* Flores da manhã */
+body.manha .flor-canto {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='20' fill='%23c0392b'/%3E%3Ccircle cx='50' cy='15' r='15' fill='%23e74c3c'/%3E%3Ccircle cx='85' cy='30' r='15' fill='%23e74c3c'/%3E%3Ccircle cx='85' cy='70' r='15' fill='%23e74c3c'/%3E%3Ccircle cx='50' cy='85' r='15' fill='%23e74c3c'/%3E%3Ccircle cx='15' cy='70' r='15' fill='%23e74c3c'/%3E%3Ccircle cx='15' cy='30' r='15' fill='%23e74c3c'/%3E%3Ccircle cx='50' cy='50' r='12' fill='%23f5c542'/%3E%3C/svg%3E");
+}
+
+/* Flores da tarde (girassol simplificado) */
+body.tarde .flor-canto {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='22' fill='%23442a00'/%3E%3Crect x='45' y='5' width='10' height='30' rx='5' fill='%23f1c40f' transform='rotate(0 50 50)'/%3E%3Crect x='45' y='5' width='10' height='30' rx='5' fill='%23f1c40f' transform='rotate(45 50 50)'/%3E%3Crect x='45' y='5' width='10' height='30' rx='5' fill='%23f1c40f' transform='rotate(90 50 50)'/%3E%3Crect x='45' y='5' width='10' height='30' rx='5' fill='%23f1c40f' transform='rotate(135 50 50)'/%3E%3Crect x='45' y='5' width='10' height='30' rx='5' fill='%23f1c40f' transform='rotate(180 50 50)'/%3E%3Crect x='45' y='5' width='10' height='30' rx='5' fill='%23f1c40f' transform='rotate(225 50 50)'/%3E%3Crect x='45' y='5' width='10' height='30' rx='5' fill='%23f1c40f' transform='rotate(270 50 50)'/%3E%3Crect x='45' y='5' width='10' height='30' rx='5' fill='%23f1c40f' transform='rotate(315 50 50)'/%3E%3C/svg%3E");
+}
+
+/* Flores da noite (hortênsia azul simplificada) */
+body.noite .flor-canto {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='18' fill='%232165a4'/%3E%3Ccircle cx='40' cy='30' r='14' fill='%233498db'/%3E%3Ccircle cx='60' cy='30' r='14' fill='%233498db'/%3E%3Ccircle cx='35' cy='55' r='14' fill='%233498db'/%3E%3Ccircle cx='65' cy='55' r='14' fill='%233498db'/%3E%3Ccircle cx='50' cy='70' r='14' fill='%233498db'/%3E%3Ccircle cx='50' cy='50' r='10' fill='%23ebf5ff'/%3E%3C/svg%3E");
+}
+
+/* ========== CONTEÚDO CENTRAL (TELA INICIAL) ========== */
+#tela-inicial, #carta-container {
+    position: relative;
+    z-index: 2;
+    width: 90%;
+    max-width: 800px;
+    text-align: center;
+    padding: 40px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(15px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    transition: all 0.8s ease;
+}
+
+body.noite #tela-inicial,
+body.noite #carta-container {
+    background: rgba(255, 255, 255, 0.1);
+    color: #e0dce8;
+    box-shadow: 0 8px 32px rgba(100, 100, 255, 0.2);
+}
+
+.conteudo-central {
+    position: relative;
+    z-index: 2;
+}
+
+#nome-titulo {
+    font-size: 3.5em;
+    font-weight: normal;
+    letter-spacing: 6px;
+    margin-bottom: 5px;
+    transition: color 1.5s ease;
+}
+
+body.manha #nome-titulo { color: #8b1a1a; }
+body.tarde #nome-titulo { color: #7d6608; }
+body.noite #nome-titulo { color: #b8c5e0; }
+
+#subtitulo {
+    font-size: 1.4em;
+    font-style: italic;
+    margin-bottom: 20px;
+    opacity: 0.8;
+    transition: color 1.5s ease;
+}
+
+body.manha #subtitulo { color: #a0525a; }
+body.tarde #subtitulo { color: #8b7d3c; }
+body.noite #subtitulo { color: #9aaccc; }
+
+.linha-decorativa {
+    width: 80px;
+    height: 2px;
+    margin: 20px auto;
+    background: #d4a574;
+    transition: background 1.5s ease;
+}
+
+body.noite .linha-decorativa { background: #6a7aaa; }
+
+#frase-horario {
+    font-size: 1.2em;
+    font-style: italic;
+    margin: 25px 0;
+    line-height: 1.6;
+    min-height: 50px;
+    transition: color 1.5s ease;
+}
+
+body.manha #frase-horario { color: #5d1a1a; }
+body.tarde #frase-horario { color: #5d4e1a; }
+body.noite #frase-horario { color: #c0c8e0; }
+
+/* ========== BOTÕES ========== */
+#botao-abrir, #botao-voltar {
+    padding: 14px 36px;
+    font-size: 1.1em;
+    font-family: 'Georgia', 'Times New Roman', serif;
+    background: transparent;
+    border: 2px solid #d4a574;
+    color: #6b4e3d;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    margin-top: 25px;
+}
+
+body.noite #botao-abrir,
+body.noite #botao-voltar {
+    border-color: #6a7aaa;
+    color: #b8c5e0;
+}
+
+#botao-abrir:hover, #botao-voltar:hover {
+    background: #d4a574;
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+body.noite #botao-abrir:hover,
+body.noite #botao-voltar:hover {
+    background: #6a7aaa;
+    color: #1a1a3e;
+}
+
+/* ========== CARTA ========== */
+.oculto {
+    display: none;
+}
+
+.carta {
+    text-align: left;
+    padding: 30px;
+    max-height: 60vh;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #d4a574 transparent;
+}
+
+.carta h2 {
+    font-size: 1.8em;
+    font-weight: normal;
+    margin-bottom: 25px;
+    text-align: center;
+    transition: color 1.5s ease;
+}
+
+body.manha .carta h2 { color: #8b1a1a; }
+body.tarde .carta h2 { color: #7d6608; }
+body.noite .carta h2 { color: #b8c5e0; }
+
+.carta p {
+    font-size: 1.05em;
+    line-height: 1.9;
+    margin-bottom: 18px;
+    text-align: justify;
+}
+
+.assinatura {
+    text-align: right;
+    margin-top: 40px;
+    font-size: 1.2em;
+    line-height: 1.8;
+}
+
+/* ========== RESPONSIVO ========== */
+@media (max-width: 600px) {
+    #nome-titulo { font-size: 2.5em; }
+    #subtitulo { font-size: 1.1em; }
+    #frase-horario { font-size: 1em; }
+    .carta { padding: 15px; }
+    .carta h2 { font-size: 1.4em; }
+    .carta p { font-size: 0.95em; }
+    .flor-canto { width: 80px; height: 80px; }
+}
